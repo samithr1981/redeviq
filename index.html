@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RedevIQ — Housing Society Redevelopment Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #0E1117;
+  --bg2:     #161B27;
+  --bg3:     #1E2535;
+  --border:  #2A3347;
+  --border2: #3A4560;
+  --text:    #E8ECF4;
+  --text2:   #9BA5BE;
+  --text3:   #5C6A8A;
+  --gold:    #E8B84B;
+  --gold-l:  rgba(232,184,75,0.12);
+  --gold-b:  rgba(232,184,75,0.25);
+  --teal:    #3ECFAA;
+  --teal-l:  rgba(62,207,170,0.10);
+  --red:     #F06B6B;
+  --red-l:   rgba(240,107,107,0.10);
+  --blue:    #5B8EF0;
+  --blue-l:  rgba(91,142,240,0.10);
+  --serif:   'Syne', sans-serif;
+  --sans:    'Instrument Sans', system-ui, sans-serif;
+  --r:       10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── NAV ── */
+nav {
+  border-bottom: 1px solid var(--border);
+  background: rgba(14,17,23,0.95);
+  backdrop-filter: blur(12px);
+  position: sticky; top: 0; z-index: 100;
+  padding: 0 24px;
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
+}
+.nav-logo { font-family: var(--serif); font-size: 18px; font-weight: 800; color: var(--gold); letter-spacing: -0.5px; }
+.nav-logo span { color: var(--text2); font-weight: 400; font-size: 13px; margin-left: 8px; font-family: var(--sans); }
+.nav-tabs { display: flex; gap: 2px; }
+.nav-tab {
+  padding: 6px 14px; font-size: 13px; font-weight: 500;
+  border-radius: 6px; border: none; background: transparent;
+  color: var(--text2); cursor: pointer; transition: all .15s;
+  font-family: var(--sans);
+}
+.nav-tab:hover { color: var(--text); background: var(--bg3); }
+.nav-tab.active { color: var(--gold); background: var(--gold-l); }
+.nav-pin { font-size: 12px; color: var(--text3); display: flex; align-items: center; gap: 6px; }
+.pin-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+/* ── LAYOUT ── */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 28px 24px; }
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── SECTION HEADERS ── */
+.section-head { margin-bottom: 20px; }
+.section-head h2 { font-family: var(--serif); font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.section-head p { font-size: 13px; color: var(--text2); }
+
+/* ── CARDS / PANELS ── */
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 20px;
+  transition: border-color .2s;
+}
+.card:hover { border-color: var(--border2); }
+.card-head { font-family: var(--serif); font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.card-head .icon { font-size: 16px; }
+
+/* ── GRID ── */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+.g12 { display: grid; grid-template-columns: 340px 1fr; gap: 16px; }
+
+/* ── FORM ELEMENTS ── */
+label { font-size: 12px; color: var(--text2); font-weight: 500; display: block; margin-bottom: 5px; letter-spacing: .03em; text-transform: uppercase; }
+input[type=text], input[type=number], select, textarea {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 6px; padding: 8px 10px; color: var(--text);
+  font-size: 13px; font-family: var(--sans);
+  transition: border-color .15s;
+  -webkit-appearance: none;
+}
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); }
+input[type=range] { width: 100%; accent-color: var(--gold); cursor: pointer; }
+.field { margin-bottom: 14px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.field-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 6px; border: none;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  font-family: var(--sans); transition: all .15s;
+}
+.btn-gold { background: var(--gold); color: var(--bg); }
+.btn-gold:hover { background: #F5C85A; }
+.btn-outline { background: transparent; border: 1px solid var(--border2); color: var(--text2); }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+.btn-danger { background: var(--red-l); border: 1px solid var(--red); color: var(--red); }
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+
+/* ── KPI TILES ── */
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 12px; margin-bottom: 20px; }
+.kpi { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r); padding: 14px 16px; }
+.kpi-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+.kpi-val { font-family: var(--serif); font-size: 26px; font-weight: 700; color: var(--text); line-height: 1; }
+.kpi-sub { font-size: 11px; color: var(--text2); margin-top: 3px; }
+.kpi.gold { border-color: var(--gold-b); }
+.kpi.gold .kpi-val { color: var(--gold); }
+.kpi.teal { border-color: rgba(62,207,170,.25); }
+.kpi.teal .kpi-val { color: var(--teal); }
+.kpi.red { border-color: rgba(240,107,107,.25); }
+.kpi.red .kpi-val { color: var(--red); }
+
+/* ── TABLE ── */
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th { background: var(--bg3); padding: 10px 12px; text-align: left; font-weight: 600; font-size: 11px; color: var(--text2); letter-spacing: .04em; text-transform: uppercase; border-bottom: 1px solid var(--border); white-space: nowrap; }
+tbody td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text); }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: rgba(255,255,255,.02); }
+.td-num { text-align: right; font-family: var(--serif); font-size: 13px; }
+.td-good { color: var(--teal); font-weight: 600; }
+.td-bad  { color: var(--red);  font-weight: 600; }
+.td-warn { color: var(--gold); font-weight: 600; }
+
+/* ── BADGES ── */
+.badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.badge-gold  { background: var(--gold-l); color: var(--gold); border: 1px solid var(--gold-b); }
+.badge-teal  { background: var(--teal-l); color: var(--teal); border: 1px solid rgba(62,207,170,.25); }
+.badge-red   { background: var(--red-l);  color: var(--red);  border: 1px solid rgba(240,107,107,.25); }
+.badge-blue  { background: var(--blue-l); color: var(--blue); border: 1px solid rgba(91,142,240,.25); }
+
+/* ── PROGRESS BAR ── */
+.prog-wrap { background: var(--bg3); border-radius: 4px; height: 6px; overflow: hidden; margin-top: 4px; }
+.prog-fill { height: 6px; border-radius: 4px; background: var(--gold); transition: width .5s ease; }
+
+/* ── OPTION CARDS ── */
+.opt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 12px; }
+.opt-card {
+  background: var(--bg2); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 16px; cursor: pointer;
+  transition: all .2s;
+}
+.opt-card:hover { border-color: var(--gold-b); transform: translateY(-2px); }
+.opt-card.selected { border-color: var(--gold); background: var(--gold-l); }
+.opt-card h3 { font-family: var(--serif); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.opt-card .opt-scheme { font-size: 11px; color: var(--text2); margin-bottom: 10px; }
+.opt-stat { display: flex; justify-content: space-between; font-size: 12px; padding: 3px 0; border-bottom: 1px solid var(--border); }
+.opt-stat:last-child { border-bottom: none; }
+.opt-stat .lbl { color: var(--text3); }
+.opt-stat .val { color: var(--text); font-weight: 500; }
+
+/* ── DEV SCORING ── */
+.score-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.score-row label { margin: 0; min-width: 180px; font-size: 12px; text-transform: none; letter-spacing: 0; }
+.score-row input[type=range] { flex: 1; }
+.score-row .score-val { min-width: 32px; text-align: right; font-weight: 600; color: var(--gold); font-size: 13px; }
+.score-weight { font-size: 11px; color: var(--text3); min-width: 50px; }
+
+/* ── ENTITLEMENT CARD ── */
+.ent-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+.ent-flat { font-size: 12px; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+.ent-area { font-family: var(--serif); font-size: 20px; font-weight: 700; color: var(--gold); }
+.ent-sub  { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+/* ── ALERT ── */
+.alert { padding: 12px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
+.alert-gold { background: var(--gold-l); border: 1px solid var(--gold-b); color: var(--gold); }
+.alert-teal { background: var(--teal-l); border: 1px solid rgba(62,207,170,.25); color: var(--teal); }
+.alert-red  { background: var(--red-l);  border: 1px solid rgba(240,107,107,.25); color: var(--red); }
+
+/* ── COMPARE TABLE HIGHLIGHT ── */
+.best-col td { background: var(--gold-l) !important; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px) {
+  .g2,.g3,.g4,.g12 { grid-template-columns: 1fr; }
+  .field-row,.field-row3 { grid-template-columns: 1fr; }
+  .nav-tabs { display: none; }
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+.page.active { animation: fadeIn .25s ease; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">RedevIQ <span>Society Redevelopment Intelligence</span></div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showPage('setup',this)">⚙ Setup</button>
+      <button class="nav-tab" onclick="showPage('options',this)">📊 Options</button>
+      <button class="nav-tab" onclick="showPage('entitlement',this)">🏠 Member Entitlement</button>
+      <button class="nav-tab" onclick="showPage('developers',this)">🏗 Developer Scoring</button>
+      <button class="nav-tab" onclick="showPage('compare',this)">⚖ Compare</button>
+    </div>
+    <div class="nav-pin"><span class="pin-dot"></span><span id="society-name-nav">No society loaded</span></div>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PAGE 1: SETUP -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="wrap page active" id="page-setup">
+  <div class="section-head">
+    <h2>Society Setup</h2>
+    <p>Configure your society's base data. This drives all calculations across the tool.</p>
+  </div>
+
+  <div class="g12">
+    <!-- LEFT: SOCIETY PROFILE -->
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-head"><span class="icon">🏢</span> Society Profile</div>
+        <div class="field">
+          <label>Society Name</label>
+          <input type="text" id="s-name" placeholder="e.g. Shreenath Nagar CHS Ltd" oninput="syncName()">
+        </div>
+        <div class="field-row">
+          <div>
+            <label>Location / Area</label>
+            <input type="text" id="s-location" placeholder="e.g. Dahisar East, Mumbai">
+          </div>
+          <div>
+            <label>Ward / Zone</label>
+            <input type="text" id="s-ward" placeholder="e.g. R-North">
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label>Net Plot Area (sq mt)</label>
+            <input type="number" id="s-plot" value="6692.73" oninput="calcOptions()">
+          </div>
+          <div>
+            <label>Reservation / Encroachment (sq mt)</label>
+            <input type="number" id="s-res" value="1461.58" oninput="calcOptions()">
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label>Road Setback (sq mt)</label>
+            <input type="number" id="s-setback" value="192" oninput="calcOptions()">
+          </div>
+          <div>
+            <label>Amenity Handover to MCGM (sq mt)</label>
+            <input type="number" id="s-amenity" value="261.56" oninput="calcOptions()">
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label>Ready Reckoner Rate (₹/sq mt)</label>
+            <input type="number" id="s-rr" value="57110" oninput="calcOptions()">
+          </div>
+          <div>
+            <label>Construction Cost (₹/sq ft)</label>
+            <input type="number" id="s-const" value="3250" oninput="calcOptions()">
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-head"><span class="icon">👥</span> Member Composition</div>
+        <div class="field-row">
+          <div>
+            <label>Total Residential Members</label>
+            <input type="number" id="s-total" value="133" oninput="calcMembers()">
+          </div>
+          <div>
+            <label>Commercial Members / Shops</label>
+            <input type="number" id="s-comm" value="0" oninput="calcOptions()">
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label>2BHK Members (%)</label>
+            <input type="number" id="s-2bhk-pct" value="10" min="0" max="100" oninput="calcMembers()">
+          </div>
+          <div>
+            <label>1BHK Members (%)</label>
+            <input type="number" id="s-1bhk-pct" value="90" min="0" max="100" readonly style="opacity:.6">
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label>Avg 1BHK Carpet Area (sq ft, MOFA)</label>
+            <input type="number" id="s-1bhk-area" value="442" oninput="calcMembers()">
+          </div>
+          <div>
+            <label>Avg 2BHK Carpet Area (sq ft, MOFA)</label>
+            <input type="number" id="s-2bhk-area" value="680" oninput="calcMembers()">
+          </div>
+        </div>
+        <div id="member-summary" class="alert alert-teal" style="margin:0"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="icon">💰</span> Member Benefits (All Options)</div>
+        <div class="field-row">
+          <div>
+            <label>Rent (₹/sq ft/month)</label>
+            <input type="number" id="s-rent" value="66" oninput="calcOptions()">
+          </div>
+          <div>
+            <label>Rent Period (months)</label>
+            <input type="number" id="s-rent-months" value="38" oninput="calcOptions()">
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label>Corpus Fund (₹/sq ft)</label>
+            <input type="number" id="s-corpus" value="750" oninput="calcOptions()">
+          </div>
+          <div>
+            <label>Shifting Charges (₹/member)</label>
+            <input type="number" id="s-shifting" value="25000" oninput="calcOptions()">
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label>Residential Sale Rate (₹/sq ft)</label>
+            <input type="number" id="s-sale-resi" value="23000" oninput="calcOptions()">
+          </div>
+          <div>
+            <label>Commercial Sale Rate GF (₹/sq ft)</label>
+            <input type="number" id="s-sale-comm" value="55000" oninput="calcOptions()">
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label>Interest on Finance (% p.a.)</label>
+            <input type="number" id="s-interest" value="15" oninput="calcOptions()">
+          </div>
+          <div>
+            <label>Project Duration (months)</label>
+            <input type="number" id="s-duration" value="36" oninput="calcOptions()">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: QUICK SUMMARY -->
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-head"><span class="icon">📐</span> Plot Summary (auto-calculated)</div>
+        <div id="plot-summary"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-head"><span class="icon">📋</span> Options to Evaluate</div>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:12px">Configure which redevelopment schemes apply to your society.</p>
+        <div id="options-config">
+          <div class="field-row3">
+            <div><label>Option 1 — Scheme</label><input type="text" id="opt1-scheme" value="33-7B" oninput="calcOptions()"></div>
+            <div><label>FSI</label><input type="number" id="opt1-fsi" value="3.24" step="0.01" oninput="calcOptions()"></div>
+            <div><label>Member Area +%</label><input type="number" id="opt1-add" value="24" oninput="calcOptions()"></div>
+          </div>
+          <div class="field-row3">
+            <div><label>Option 2 — Scheme</label><input type="text" id="opt2-scheme" value="33-9 Cluster" oninput="calcOptions()"></div>
+            <div><label>FSI</label><input type="number" id="opt2-fsi" value="4.0" step="0.01" oninput="calcOptions()"></div>
+            <div><label>Member Area +%</label><input type="number" id="opt2-add" value="55" oninput="calcOptions()"></div>
+          </div>
+          <div class="field-row3">
+            <div><label>Option 3 — Scheme</label><input type="text" id="opt3-scheme" value="33-11" oninput="calcOptions()"></div>
+            <div><label>FSI</label><input type="number" id="opt3-fsi" value="5.4" step="0.01" oninput="calcOptions()"></div>
+            <div><label>Member Area +%</label><input type="number" id="opt3-add" value="26" oninput="calcOptions()"></div>
+          </div>
+          <div class="field-row3">
+            <div><label>Option 4 — Scheme</label><input type="text" id="opt4-scheme" value="33-12B" oninput="calcOptions()"></div>
+            <div><label>FSI</label><input type="number" id="opt4-fsi" value="5.4" step="0.01" oninput="calcOptions()"></div>
+            <div><label>Member Area +%</label><input type="number" id="opt4-add" value="26" oninput="calcOptions()"></div>
+          </div>
+          <div class="field-row3">
+            <div><label>Option 5 — Scheme</label><input type="text" id="opt5-scheme" value="33-20B" oninput="calcOptions()"></div>
+            <div><label>FSI</label><input type="number" id="opt5-fsi" value="5.4" step="0.01" oninput="calcOptions()"></div>
+            <div><label>Member Area +%</label><input type="number" id="opt5-add" value="26" oninput="calcOptions()"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="icon">💾</span> Save / Load</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-gold" onclick="saveData()">💾 Save to browser</button>
+          <button class="btn btn-outline" onclick="loadData()">📂 Load saved</button>
+          <button class="btn btn-outline" onclick="exportJSON()">⬇ Export JSON</button>
+          <button class="btn btn-danger btn-sm" onclick="resetAll()">🗑 Reset</button>
+        </div>
+        <p style="font-size:11px;color:var(--text3);margin-top:8px">Data is saved in your browser. Export JSON to backup or share with PMC.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PAGE 2: OPTIONS ANALYSIS -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="wrap page" id="page-options">
+  <div class="section-head">
+    <h2>Redevelopment Options Analysis</h2>
+    <p>All 5 options calculated from your society data. Click any option to explore.</p>
+  </div>
+  <div id="options-kpis" class="kpi-row"></div>
+  <div id="options-cards" class="opt-grid" style="margin-bottom:20px"></div>
+  <div class="card">
+    <div class="card-head"><span class="icon">📊</span> Full Comparison Table</div>
+    <div id="options-table"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PAGE 3: MEMBER ENTITLEMENT -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="wrap page" id="page-entitlement">
+  <div class="section-head">
+    <h2>Member Entitlement Calculator</h2>
+    <p>What each member gets under each option. Share this with society members.</p>
+  </div>
+
+  <div class="g2" style="margin-bottom:20px">
+    <div class="card">
+      <div class="card-head"><span class="icon">🔢</span> Calculate for your flat</div>
+      <div class="field-row">
+        <div>
+          <label>Your current carpet area (sq ft, MOFA)</label>
+          <input type="number" id="ent-area" value="442" oninput="calcEntitlement()">
+        </div>
+        <div>
+          <label>Flat type</label>
+          <select id="ent-type" onchange="calcEntitlement()">
+            <option value="1bhk">1BHK</option>
+            <option value="2bhk">2BHK</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div>
+          <label>Floor</label>
+          <input type="number" id="ent-floor" value="3" oninput="calcEntitlement()">
+        </div>
+        <div>
+          <label>Option to evaluate</label>
+          <select id="ent-option" onchange="calcEntitlement()">
+            <option value="0">Option 1</option>
+            <option value="1">Option 2</option>
+            <option value="2">Option 3</option>
+            <option value="3">Option 4</option>
+            <option value="4">Option 5</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div id="ent-result" class="card">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="icon">📋</span> All member types — entitlement summary</div>
+    <div id="ent-all-table"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PAGE 4: DEVELOPER SCORING -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="wrap page" id="page-developers">
+  <div class="section-head">
+    <h2>Developer Evaluation & Scoring</h2>
+    <p>Score each developer across financial, technical, and security parameters. MC RDC use.</p>
+  </div>
+
+  <!-- Developer data entry -->
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-head"><span class="icon">➕</span> Developer Offers</div>
+    <div id="dev-entry-list"></div>
+    <button class="btn btn-outline" onclick="addDeveloper()" style="margin-top:8px">+ Add developer</button>
+  </div>
+
+  <!-- Scoring weights -->
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-head"><span class="icon">⚖</span> Scoring weights (must total 100)</div>
+      <div class="score-row">
+        <label>Additional carpet area (%)</label>
+        <input type="range" id="w-carpet" min="0" max="50" value="25" oninput="updateWeights()">
+        <span class="score-val" id="wv-carpet">25</span>
+        <span class="score-weight">pts</span>
+      </div>
+      <div class="score-row">
+        <label>Corpus fund (₹/sq ft)</label>
+        <input type="range" id="w-corpus" min="0" max="30" value="15" oninput="updateWeights()">
+        <span class="score-val" id="wv-corpus">15</span>
+        <span class="score-weight">pts</span>
+      </div>
+      <div class="score-row">
+        <label>Rent offered</label>
+        <input type="range" id="w-rent" min="0" max="20" value="10" oninput="updateWeights()">
+        <span class="score-val" id="wv-rent">10</span>
+        <span class="score-weight">pts</span>
+      </div>
+      <div class="score-row">
+        <label>Developer networth / financials</label>
+        <input type="range" id="w-networth" min="0" max="20" value="15" oninput="updateWeights()">
+        <span class="score-val" id="wv-networth">15</span>
+        <span class="score-weight">pts</span>
+      </div>
+      <div class="score-row">
+        <label>Completed projects</label>
+        <input type="range" id="w-projects" min="0" max="20" value="15" oninput="updateWeights()">
+        <span class="score-val" id="wv-projects">15</span>
+        <span class="score-weight">pts</span>
+      </div>
+      <div class="score-row">
+        <label>Bank guarantee amount</label>
+        <input type="range" id="w-bg" min="0" max="20" value="10" oninput="updateWeights()">
+        <span class="score-val" id="wv-bg">10</span>
+        <span class="score-weight">pts</span>
+      </div>
+      <div class="score-row">
+        <label>Litigation / track record</label>
+        <input type="range" id="w-legal" min="0" max="15" value="10" oninput="updateWeights()">
+        <span class="score-val" id="wv-legal">10</span>
+        <span class="score-weight">pts</span>
+      </div>
+      <hr class="divider" style="margin:10px 0">
+      <div style="display:flex;justify-content:space-between;font-size:13px">
+        <span style="color:var(--text2)">Total weight</span>
+        <span id="w-total" style="font-weight:700;color:var(--gold)">100 pts</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="icon">🏆</span> Scoring result</div>
+      <div id="dev-scores"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="icon">📋</span> Developer comparison matrix</div>
+    <div id="dev-matrix"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PAGE 5: COMPARE & RECOMMEND -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="wrap page" id="page-compare">
+  <div class="section-head">
+    <h2>Final Comparison & Recommendation</h2>
+    <p>Full picture: best option × best developer for your society.</p>
+  </div>
+
+  <div id="compare-kpis" class="kpi-row"></div>
+
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-head"><span class="icon">🥇</span> Best redevelopment option</div>
+      <div id="best-option"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="icon">🏗</span> Top-ranked developer</div>
+      <div id="best-developer"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-head"><span class="icon">📊</span> Option vs developer matrix</div>
+    <div id="full-compare-table"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="icon">📝</span> Key questions before finalising (MC checklist)</div>
+    <div id="checklist"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+let developers = [
+  { name:'ABC 1', carpet_pct:46, corpus:0, rent:0, networth:0, projects:5, bg:0, no_litigation:true, scheme:'33-7B' },
+  { name:'ABC 2', carpet_pct:59, corpus:0, rent:0, networth:0, projects:5, bg:0, no_litigation:true, scheme:'33-9' },
+  { name:'Kanakia', carpet_pct:61, corpus:1800, rent:80, networth:64, projects:8, bg:0, no_litigation:true, scheme:'33-9' },
+];
+
+let computedOptions = [];
+
+// ═══════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  if (id === 'options')     renderOptions();
+  if (id === 'entitlement') { renderEntitlement(); calcEntitlement(); }
+  if (id === 'developers')  { renderDevEntry(); renderDevScores(); }
+  if (id === 'compare')     renderCompare();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════════
+const v = id => parseFloat(document.getElementById(id)?.value) || 0;
+const sv = id => document.getElementById(id)?.value || '';
+const cr = n => '₹' + (n/10000000).toFixed(2) + ' Cr';
+const lkh = n => (n/100000).toFixed(1) + 'L';
+const fmt = n => Math.round(n).toLocaleString('en-IN');
+
+function syncName() {
+  const n = sv('s-name') || 'No society loaded';
+  document.getElementById('society-name-nav').textContent = n;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MEMBER CALCULATION
+// ═══════════════════════════════════════════════════════════════
+function calcMembers() {
+  const total = v('s-total');
+  const pct2 = v('s-2bhk-pct');
+  const pct1 = 100 - pct2;
+  document.getElementById('s-1bhk-pct').value = pct1.toFixed(0);
+
+  const n2 = Math.round(total * pct2 / 100);
+  const n1 = total - n2;
+  const a1 = v('s-1bhk-area');
+  const a2 = v('s-2bhk-area');
+  const totalCarpet = (n1 * a1) + (n2 * a2);
+
+  document.getElementById('member-summary').innerHTML =
+    `<strong>${total} members total</strong> — ${n1} × 1BHK (avg ${a1} sq ft) + ${n2} × 2BHK (avg ${a2} sq ft)<br>
+     Total existing carpet: <strong>${fmt(totalCarpet)} sq ft MOFA</strong>`;
+
+  calcOptions();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PLOT SUMMARY
+// ═══════════════════════════════════════════════════════════════
+function calcPlotSummary() {
+  const plot = v('s-plot');
+  const res  = v('s-res');
+  const setback = v('s-setback');
+  const amenity = v('s-amenity');
+  const netAfterDed = plot - res - setback;
+  const netPlot = netAfterDed - amenity;
+  const el = document.getElementById('plot-summary');
+  if (!el) return;
+
+  el.innerHTML = `
+    <table style="width:100%;font-size:12px;border-collapse:collapse">
+      <tr><td style="padding:4px 0;color:var(--text2)">Gross plot area</td><td style="text-align:right;color:var(--text)">${fmt(plot)} sq mt</td></tr>
+      <tr><td style="padding:4px 0;color:var(--text2)">Less reservation/encroachment</td><td style="text-align:right;color:var(--red)">−${fmt(res)} sq mt</td></tr>
+      <tr><td style="padding:4px 0;color:var(--text2)">Less road setback</td><td style="text-align:right;color:var(--red)">−${fmt(setback)} sq mt</td></tr>
+      <tr><td style="padding:4px 0;color:var(--text2)">Less 5% MCGM amenity</td><td style="text-align:right;color:var(--red)">−${fmt(amenity)} sq mt</td></tr>
+      <tr style="border-top:1px solid var(--border)"><td style="padding:6px 0;font-weight:600">Net usable plot area</td><td style="text-align:right;font-weight:700;color:var(--gold)">${fmt(netPlot)} sq mt</td></tr>
+    </table>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CORE OPTION CALCULATION ENGINE
+// ═══════════════════════════════════════════════════════════════
+function calcOptions() {
+  calcPlotSummary();
+  const plot    = v('s-plot');
+  const res     = v('s-res');
+  const setback = v('s-setback');
+  const amenity = v('s-amenity');
+  const netPlot = plot - res - setback - amenity;
+
+  const total   = v('s-total');
+  const pct2    = v('s-2bhk-pct');
+  const n2      = Math.round(total * pct2 / 100);
+  const n1      = total - n2;
+  const a1      = v('s-1bhk-area');
+  const a2      = v('s-2bhk-area');
+  const SQ_MT_TO_SQ_FT = 10.764;
+  const existingCarpet = (n1 * a1) + (n2 * a2); // sq ft MOFA
+
+  const constCost = v('s-const');      // ₹/sq ft
+  const saleResi  = v('s-sale-resi');
+  const saleComm  = v('s-sale-comm');
+  const corpus    = v('s-corpus');     // ₹/sq ft
+  const rent      = v('s-rent');       // ₹/sq ft/month
+  const rentMo    = v('s-rent-months');
+  const shifting  = v('s-shifting');   // ₹/member
+  const interest  = v('s-interest') / 100;
+
+  computedOptions = [];
+  for (let i = 1; i <= 5; i++) {
+    const scheme = sv(`opt${i}-scheme`);
+    const fsi    = v(`opt${i}-fsi`);
+    const addPct = v(`opt${i}-add`) / 100;
+
+    if (!scheme) continue;
+
+    // Built-up area (sq mt)
+    const totalBUA_sqmt = netPlot * fsi;
+    const totalBUA_sqft = totalBUA_sqmt * SQ_MT_TO_SQ_FT;
+
+    // Member carpet (MOFA)
+    const memberCarpet_sqft = existingCarpet * (1 + addPct);
+    const memberCarpet_sqmt = memberCarpet_sqft / SQ_MT_TO_SQ_FT;
+
+    // Sale carpet (approx 85% of BUA - member)
+    const totalCarpet_sqft = totalBUA_sqft * 0.85;
+    const saleCarpet_sqft  = Math.max(0, totalCarpet_sqft - memberCarpet_sqft);
+
+    // === COSTING ===
+    // Construction cost
+    const constCostTotal = totalBUA_sqft * constCost;
+    // Society costs
+    const corpusTotal    = existingCarpet * corpus;
+    const rentTotal      = existingCarpet * rent * rentMo;
+    const shiftTotal     = total * shifting;
+    // GST (5% on member area, 18% on construction)
+    const gstConst       = constCostTotal * 0.18;
+    const gstMember      = memberCarpet_sqft * 13000 * 0.05;
+    // Consultant (approx 14% of BUA sqft × 60 ₹)
+    const consultTotal   = totalBUA_sqft * 60 * 2;  // architect + liaison
+    // MCGM charges (approx 4% of project)
+    const mcgmTotal      = constCostTotal * 0.04;
+    // Brokerage 5% of sale
+    const saleValue      = saleCarpet_sqft * saleResi;
+    const brokerage      = saleValue * 0.05;
+
+    const totalCost      = constCostTotal + corpusTotal + rentTotal + shiftTotal + gstConst + gstMember + consultTotal + mcgmTotal + brokerage;
+    const peakFinance    = totalCost * 0.35; // approx
+    const interestCost   = peakFinance * interest * (v('s-duration') / 12);
+    const totalExpenses  = totalCost + interestCost;
+
+    // Recovery
+    const recovery       = saleValue;
+    const profit         = recovery - totalExpenses;
+    const profitPct      = totalExpenses > 0 ? (profit / totalExpenses * 100) : 0;
+
+    computedOptions.push({
+      idx: i,
+      scheme,
+      fsi,
+      addPct: addPct * 100,
+      totalBUA_sqft,
+      memberCarpet_sqft,
+      saleCarpet_sqft,
+      totalCost: totalCost / 1e7, // Cr
+      totalExpenses: totalExpenses / 1e7,
+      recovery: recovery / 1e7,
+      profit: profit / 1e7,
+      profitPct,
+      corpusTotal: corpusTotal / 1e7,
+      rentTotal: rentTotal / 1e7,
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER: OPTIONS PAGE
+// ═══════════════════════════════════════════════════════════════
+function renderOptions() {
+  calcOptions();
+  if (!computedOptions.length) return;
+
+  const best = computedOptions.reduce((a,b) => b.profitPct > a.profitPct ? b : a);
+  const bestMember = computedOptions.reduce((a,b) => b.memberCarpet_sqft > a.memberCarpet_sqft ? b : a);
+
+  // KPIs
+  document.getElementById('options-kpis').innerHTML = `
+    <div class="kpi gold"><div class="kpi-label">Best profit option</div><div class="kpi-val">${best.scheme}</div><div class="kpi-sub">${best.profitPct.toFixed(1)}% return · ${cr(best.profit*1e7)}</div></div>
+    <div class="kpi teal"><div class="kpi-label">Best for members</div><div class="kpi-val">${bestMember.scheme}</div><div class="kpi-sub">${fmt(bestMember.memberCarpet_sqft)} sq ft · +${bestMember.addPct.toFixed(0)}%</div></div>
+    <div class="kpi"><div class="kpi-label">Options evaluated</div><div class="kpi-val">${computedOptions.length}</div><div class="kpi-sub">FSI range: ${Math.min(...computedOptions.map(o=>o.fsi))}–${Math.max(...computedOptions.map(o=>o.fsi))}</div></div>
+    <div class="kpi"><div class="kpi-label">Max sale area</div><div class="kpi-val">${lkh(Math.max(...computedOptions.map(o=>o.saleCarpet_sqft)))}</div><div class="kpi-sub">sq ft across all options</div></div>
+  `;
+
+  // Option cards
+  document.getElementById('options-cards').innerHTML = computedOptions.map(o => `
+    <div class="opt-card ${o.scheme === best.scheme ? 'selected' : ''}">
+      <h3>${o.scheme} ${o.scheme === best.scheme ? '⭐' : ''}</h3>
+      <div class="opt-scheme">FSI ${o.fsi} · +${o.addPct.toFixed(0)}% member area</div>
+      <div class="opt-stat"><span class="lbl">Member carpet</span><span class="val">${fmt(o.memberCarpet_sqft)} sq ft</span></div>
+      <div class="opt-stat"><span class="lbl">Sale carpet</span><span class="val">${fmt(o.saleCarpet_sqft)} sq ft</span></div>
+      <div class="opt-stat"><span class="lbl">Project cost</span><span class="val">${cr(o.totalExpenses*1e7)}</span></div>
+      <div class="opt-stat"><span class="lbl">Recovery</span><span class="val">${cr(o.recovery*1e7)}</span></div>
+      <div class="opt-stat"><span class="lbl">Profit</span><span class="val ${o.profitPct>=0?'td-good':'td-bad'}">${cr(o.profit*1e7)} (${o.profitPct.toFixed(1)}%)</span></div>
+    </div>`).join('');
+
+  // Full table
+  const rows = computedOptions.map(o => `
+    <tr class="${o.scheme === best.scheme ? 'best-col' : ''}">
+      <td><strong>${o.scheme}</strong> ${o.scheme === best.scheme ? '<span class="badge badge-gold">Best</span>' : ''}</td>
+      <td class="td-num">${o.fsi}</td>
+      <td class="td-num">${fmt(o.totalBUA_sqft)}</td>
+      <td class="td-num td-good">${fmt(o.memberCarpet_sqft)}</td>
+      <td class="td-num">+${o.addPct.toFixed(0)}%</td>
+      <td class="td-num">${fmt(o.saleCarpet_sqft)}</td>
+      <td class="td-num">${cr(o.totalExpenses*1e7)}</td>
+      <td class="td-num">${cr(o.recovery*1e7)}</td>
+      <td class="td-num ${o.profitPct>=0?'td-good':'td-bad'}">${cr(o.profit*1e7)}</td>
+      <td class="td-num ${o.profitPct>=15?'td-good':o.profitPct>=0?'td-warn':'td-bad'}">${o.profitPct.toFixed(1)}%</td>
+    </tr>`).join('');
+
+  document.getElementById('options-table').innerHTML = `
+    <div class="tbl-wrap"><table>
+      <thead><tr>
+        <th>Scheme</th><th>FSI</th><th>Total BUA (sq ft)</th>
+        <th>Member Carpet (sq ft)</th><th>Area Gain</th>
+        <th>Sale Carpet (sq ft)</th><th>Total Cost</th>
+        <th>Recovery</th><th>Profit</th><th>Profit %</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER: ENTITLEMENT
+// ═══════════════════════════════════════════════════════════════
+function renderEntitlement() {
+  const total   = v('s-total');
+  const pct2    = v('s-2bhk-pct') / 100;
+  const n2      = Math.round(total * pct2);
+  const n1      = total - n2;
+  const a1      = v('s-1bhk-area');
+  const a2      = v('s-2bhk-area');
+
+  const rows = computedOptions.map(o => `
+    <tr>
+      <td><strong>${o.scheme}</strong></td>
+      <td class="td-num">+${o.addPct.toFixed(0)}%</td>
+      <td class="td-num td-good">${fmt(a1 * (1 + o.addPct/100))} sq ft</td>
+      <td class="td-num td-good">${fmt(a2 * (1 + o.addPct/100))} sq ft</td>
+      <td class="td-num">+${fmt(a1 * o.addPct/100)} sq ft</td>
+      <td class="td-num">+${fmt(a2 * o.addPct/100)} sq ft</td>
+    </tr>`).join('');
+
+  document.getElementById('ent-all-table').innerHTML = `
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Option</th><th>Area gain</th><th>1BHK final carpet</th><th>2BHK final carpet</th><th>1BHK gain</th><th>2BHK gain</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`;
+}
+
+function calcEntitlement() {
+  const area   = v('ent-area');
+  const optIdx = parseInt(document.getElementById('ent-option')?.value || '0');
+  const opt    = computedOptions[optIdx];
+  if (!opt) return;
+
+  const corpus  = v('s-corpus');
+  const rent    = v('s-rent');
+  const rentMo  = v('s-rent-months');
+  const shifting= v('s-shifting');
+
+  const newArea = area * (1 + opt.addPct / 100);
+  const gain    = newArea - area;
+  const corpusAmt = area * corpus;
+  const rentAmt   = area * rent * rentMo;
+  const totalPkg  = corpusAmt + rentAmt + shifting;
+
+  document.getElementById('ent-result').innerHTML = `
+    <div class="card-head"><span class="icon">✅</span> Your entitlement under ${opt.scheme}</div>
+    <div class="ent-card">
+      <div class="ent-flat">Current flat: ${fmt(area)} sq ft MOFA</div>
+      <div class="ent-area">${fmt(Math.round(newArea))} sq ft</div>
+      <div class="ent-sub">New carpet area (MOFA) · +${fmt(Math.round(gain))} sq ft gained (+${opt.addPct.toFixed(0)}%)</div>
+    </div>
+    <div class="tbl-wrap" style="margin-top:12px"><table>
+      <thead><tr><th>Benefit</th><th>Amount</th></tr></thead>
+      <tbody>
+        <tr><td>Additional carpet area</td><td class="td-num td-good">+${fmt(Math.round(gain))} sq ft</td></tr>
+        <tr><td>Corpus fund (₹${corpus}/sq ft on existing)</td><td class="td-num">₹${fmt(corpusAmt)}</td></tr>
+        <tr><td>Rent (${rentMo} months × ₹${rent}/sq ft/month)</td><td class="td-num">₹${fmt(rentAmt)}</td></tr>
+        <tr><td>Shifting charges</td><td class="td-num">₹${fmt(shifting)}</td></tr>
+        <tr style="border-top:1px solid var(--border)"><td><strong>Total cash benefit</strong></td><td class="td-num td-good"><strong>₹${fmt(totalPkg)}</strong></td></tr>
+      </tbody>
+    </table></div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER: DEVELOPER ENTRY
+// ═══════════════════════════════════════════════════════════════
+function renderDevEntry() {
+  const html = developers.map((d, i) => `
+    <div class="card" style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <strong style="font-family:var(--serif)">${d.name}</strong>
+        <button class="btn btn-danger btn-sm" onclick="removeDev(${i})">Remove</button>
+      </div>
+      <div class="field-row3">
+        <div><label>Developer Name</label><input type="text" value="${d.name}" oninput="devUpdate(${i},'name',this.value)" /></div>
+        <div><label>Redevelopment Scheme</label><input type="text" value="${d.scheme}" oninput="devUpdate(${i},'scheme',this.value)" /></div>
+        <div><label>Additional Carpet % (MOFA)</label><input type="number" value="${d.carpet_pct}" oninput="devUpdate(${i},'carpet_pct',+this.value)" /></div>
+      </div>
+      <div class="field-row3">
+        <div><label>Corpus (₹/sq ft)</label><input type="number" value="${d.corpus}" oninput="devUpdate(${i},'corpus',+this.value)" /></div>
+        <div><label>Rent offered (₹/sq ft/mo)</label><input type="number" value="${d.rent}" oninput="devUpdate(${i},'rent',+this.value)" /></div>
+        <div><label>Networth (₹ Cr)</label><input type="number" value="${d.networth}" oninput="devUpdate(${i},'networth',+this.value)" /></div>
+      </div>
+      <div class="field-row3">
+        <div><label>Completed projects</label><input type="number" value="${d.projects}" oninput="devUpdate(${i},'projects',+this.value)" /></div>
+        <div><label>Bank Guarantee (₹ Cr)</label><input type="number" value="${d.bg}" oninput="devUpdate(${i},'bg',+this.value)" /></div>
+        <div><label>No litigation?</label>
+          <select onchange="devUpdate(${i},'no_litigation',this.value==='true')">
+            <option value="true" ${d.no_litigation?'selected':''}>Yes — clean record</option>
+            <option value="false" ${!d.no_litigation?'selected':''}>No — has litigation</option>
+          </select>
+        </div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('dev-entry-list').innerHTML = html;
+  renderDevScores();
+}
+
+function devUpdate(i, key, val) {
+  developers[i][key] = val;
+  renderDevScores();
+}
+
+function addDeveloper() {
+  developers.push({ name:`Developer ${developers.length+1}`, carpet_pct:0, corpus:0, rent:0, networth:0, projects:0, bg:0, no_litigation:true, scheme:'TBD' });
+  renderDevEntry();
+}
+
+function removeDev(i) {
+  developers.splice(i, 1);
+  renderDevEntry();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SCORING ENGINE
+// ═══════════════════════════════════════════════════════════════
+function updateWeights() {
+  ['carpet','corpus','rent','networth','projects','bg','legal'].forEach(k => {
+    document.getElementById(`wv-${k}`).textContent = document.getElementById(`w-${k}`).value;
+  });
+  const total = ['carpet','corpus','rent','networth','projects','bg','legal'].reduce((s,k) => s + parseInt(document.getElementById(`w-${k}`).value), 0);
+  const el = document.getElementById('w-total');
+  el.textContent = total + ' pts';
+  el.style.color = total === 100 ? 'var(--teal)' : 'var(--red)';
+  renderDevScores();
+}
+
+function scoreDevs() {
+  if (!developers.length) return [];
+  const wt = k => parseInt(document.getElementById(`w-${k}`)?.value || 0);
+
+  const maxCarpet   = Math.max(...developers.map(d=>d.carpet_pct), 1);
+  const maxCorpus   = Math.max(...developers.map(d=>d.corpus), 1);
+  const maxRent     = Math.max(...developers.map(d=>d.rent), 1);
+  const maxNetworth = Math.max(...developers.map(d=>d.networth), 1);
+  const maxProjects = Math.max(...developers.map(d=>d.projects), 1);
+  const maxBG       = Math.max(...developers.map(d=>d.bg), 1);
+
+  return developers.map(d => {
+    const s = {
+      carpet:   (d.carpet_pct   / maxCarpet)   * wt('carpet'),
+      corpus:   (d.corpus       / maxCorpus)    * wt('corpus'),
+      rent:     (d.rent         / maxRent)      * wt('rent'),
+      networth: (d.networth     / maxNetworth)  * wt('networth'),
+      projects: (d.projects     / maxProjects)  * wt('projects'),
+      bg:       (d.bg           / maxBG)        * wt('bg'),
+      legal:    d.no_litigation ? wt('legal') : 0,
+    };
+    const total = Object.values(s).reduce((a,b) => a+b, 0);
+    return { ...d, scores: s, total: Math.round(total) };
+  }).sort((a,b) => b.total - a.total);
+}
+
+function renderDevScores() {
+  const scored = scoreDevs();
+  if (!scored.length) return;
+  const max = scored[0].total;
+
+  document.getElementById('dev-scores').innerHTML = scored.map((d, i) => `
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-weight:600;font-size:13px">${i===0?'🥇 ':''}${d.name}</span>
+        <span class="badge ${i===0?'badge-gold':'badge-blue'}">${d.total} pts</span>
+      </div>
+      <div class="prog-wrap"><div class="prog-fill" style="width:${max>0?d.total/max*100:0}%;background:${i===0?'var(--gold)':'var(--blue)'}"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:3px">Carpet: ${d.scores.carpet.toFixed(0)} · Corpus: ${d.scores.corpus.toFixed(0)} · Legal: ${d.scores.legal.toFixed(0)}</div>
+    </div>`).join('');
+
+  // Matrix
+  const keys = ['carpet','corpus','rent','networth','projects','bg','legal'];
+  const labels = { carpet:'Area %', corpus:'Corpus', rent:'Rent', networth:'Networth', projects:'Projects', bg:'BG', legal:'Legal' };
+  const headerCols = scored.map(d => `<th>${d.name}</th>`).join('');
+  const matrixRows = keys.map(k => {
+    const vals = scored.map(d => `<td class="td-num">${d.scores[k].toFixed(0)}</td>`).join('');
+    return `<tr><td>${labels[k]}</td>${vals}</tr>`;
+  }).join('');
+  const totalRow = scored.map(d => `<td class="td-num ${d.total===max?'td-good':''}">${d.total}</td>`).join('');
+
+  document.getElementById('dev-matrix').innerHTML = `
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Parameter</th>${headerCols}</tr></thead>
+      <tbody>${matrixRows}
+        <tr style="border-top:2px solid var(--border2)"><td><strong>Total score</strong></td>${totalRow}</tr>
+      </tbody>
+    </table></div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER: COMPARE PAGE
+// ═══════════════════════════════════════════════════════════════
+function renderCompare() {
+  calcOptions();
+  const scored = scoreDevs();
+  if (!computedOptions.length) { document.getElementById('best-option').innerHTML = '<p style="color:var(--text3)">Configure options in Setup first.</p>'; return; }
+
+  const bestOpt = computedOptions.reduce((a,b) => b.profitPct > a.profitPct ? b : a);
+  const bestMem = computedOptions.reduce((a,b) => b.memberCarpet_sqft > a.memberCarpet_sqft ? b : a);
+  const topDev  = scored[0];
+
+  // KPIs
+  document.getElementById('compare-kpis').innerHTML = `
+    <div class="kpi gold"><div class="kpi-label">Best scheme (profit)</div><div class="kpi-val">${bestOpt.scheme}</div><div class="kpi-sub">${bestOpt.profitPct.toFixed(1)}% return</div></div>
+    <div class="kpi teal"><div class="kpi-label">Best for members</div><div class="kpi-val">${bestMem.scheme}</div><div class="kpi-sub">+${bestMem.addPct.toFixed(0)}% area gain</div></div>
+    <div class="kpi gold"><div class="kpi-label">Top developer</div><div class="kpi-val">${topDev?.name || '—'}</div><div class="kpi-sub">${topDev?.total || 0} pts / ${topDev?.carpet_pct || 0}% carpet</div></div>
+    <div class="kpi"><div class="kpi-label">Recommended combo</div><div class="kpi-val" style="font-size:16px">${bestOpt.scheme} + ${topDev?.name || '?'}</div><div class="kpi-sub">Best viable combination</div></div>
+  `;
+
+  document.getElementById('best-option').innerHTML = `
+    <div class="ent-card">
+      <div class="ent-flat">Recommended scheme</div>
+      <div class="ent-area">${bestOpt.scheme}</div>
+      <div class="ent-sub">FSI ${bestOpt.fsi} · Profit ${bestOpt.profitPct.toFixed(1)}%</div>
+    </div>
+    <div class="tbl-wrap" style="margin-top:10px"><table>
+      <tbody>
+        <tr><td>Total BUA</td><td class="td-num">${fmt(bestOpt.totalBUA_sqft)} sq ft</td></tr>
+        <tr><td>Member carpet</td><td class="td-num td-good">${fmt(bestOpt.memberCarpet_sqft)} sq ft</td></tr>
+        <tr><td>Developer sale area</td><td class="td-num">${fmt(bestOpt.saleCarpet_sqft)} sq ft</td></tr>
+        <tr><td>Total cost</td><td class="td-num">${cr(bestOpt.totalExpenses*1e7)}</td></tr>
+        <tr><td>Recovery</td><td class="td-num td-good">${cr(bestOpt.recovery*1e7)}</td></tr>
+        <tr><td>Profit</td><td class="td-num td-good">${cr(bestOpt.profit*1e7)} (${bestOpt.profitPct.toFixed(1)}%)</td></tr>
+      </tbody>
+    </table></div>`;
+
+  document.getElementById('best-developer').innerHTML = topDev ? `
+    <div class="ent-card">
+      <div class="ent-flat">Top ranked developer</div>
+      <div class="ent-area">${topDev.name}</div>
+      <div class="ent-sub">${topDev.total} points · ${topDev.carpet_pct}% additional area · Scheme: ${topDev.scheme}</div>
+    </div>
+    <div class="tbl-wrap" style="margin-top:10px"><table>
+      <tbody>
+        <tr><td>Additional carpet offered</td><td class="td-num td-good">+${topDev.carpet_pct}%</td></tr>
+        <tr><td>Corpus fund</td><td class="td-num">₹${topDev.corpus}/sq ft</td></tr>
+        <tr><td>Rent offered</td><td class="td-num">₹${topDev.rent}/sq ft/mo</td></tr>
+        <tr><td>Networth</td><td class="td-num">₹${topDev.networth} Cr</td></tr>
+        <tr><td>Completed projects</td><td class="td-num">${topDev.projects}</td></tr>
+        <tr><td>Litigation status</td><td class="td-num ${topDev.no_litigation?'td-good':'td-bad'}">${topDev.no_litigation?'Clean':'Has cases'}</td></tr>
+      </tbody>
+    </table></div>` : '<p style="color:var(--text3)">Add developers in Developer Scoring tab.</p>';
+
+  // Checklist
+  document.getElementById('checklist').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      ${[
+        'Confirm net plot area with society records and city survey map',
+        'Verify existing MOFA carpet areas for all 133 members individually',
+        'Obtain FSI calculation sheet from licensed architect for each option',
+        'Confirm 5% MCGM amenity handover requirement with authority',
+        'All developers to submit audited financials for last 3 years',
+        'Bank guarantee amount and format to be specified in tender',
+        'Confirm GST-free status for members rehab area in DA',
+        'Corpus payment schedule: 25% DA + 25% vacating + 25% at 24M + 25% OC',
+        'Parking allocation: 1 per flat, 100 guest slots, 2 for flats >963 sq ft',
+        'Lien flat provision to be included in development agreement',
+        'FSI increase clause: 50-50 split between developer and members',
+        'Independent PMC to be appointed before opening bids',
+        'Get legal opinion on development agreement draft before signing',
+        'Society resolution from >75% members required before DA',
+        'Verify developer RERA registration is current and active',
+        'Confirm shifting payment: two-way, including re-shifting at possession',
+      ].map(q => `<label style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text2);text-transform:none;letter-spacing:0;cursor:pointer">
+        <input type="checkbox" style="width:auto;margin-top:2px"> <span>${q}</span>
+      </label>`).join('')}
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SAVE / LOAD / EXPORT
+// ═══════════════════════════════════════════════════════════════
+function saveData() {
+  const data = {
+    s_name: sv('s-name'), s_location: sv('s-location'), s_plot: v('s-plot'),
+    s_res: v('s-res'), s_setback: v('s-setback'), s_amenity: v('s-amenity'),
+    s_rr: v('s-rr'), s_const: v('s-const'), s_total: v('s-total'),
+    s_comm: v('s-comm'), s_2bhk_pct: v('s-2bhk-pct'),
+    s_1bhk_area: v('s-1bhk-area'), s_2bhk_area: v('s-2bhk-area'),
+    s_rent: v('s-rent'), s_rent_months: v('s-rent-months'),
+    s_corpus: v('s-corpus'), s_shifting: v('s-shifting'),
+    s_sale_resi: v('s-sale-resi'), s_sale_comm: v('s-sale-comm'),
+    s_interest: v('s-interest'), s_duration: v('s-duration'),
+    opt1_scheme: sv('opt1-scheme'), opt1_fsi: v('opt1-fsi'), opt1_add: v('opt1-add'),
+    opt2_scheme: sv('opt2-scheme'), opt2_fsi: v('opt2-fsi'), opt2_add: v('opt2-add'),
+    opt3_scheme: sv('opt3-scheme'), opt3_fsi: v('opt3-fsi'), opt3_add: v('opt3-add'),
+    opt4_scheme: sv('opt4-scheme'), opt4_fsi: v('opt4-fsi'), opt4_add: v('opt4-add'),
+    opt5_scheme: sv('opt5-scheme'), opt5_fsi: v('opt5-fsi'), opt5_add: v('opt5-add'),
+    developers,
+  };
+  localStorage.setItem('redeviq_data', JSON.stringify(data));
+  alert('✅ Data saved to browser!');
+}
+
+function loadData() {
+  const raw = localStorage.getItem('redeviq_data');
+  if (!raw) { alert('No saved data found.'); return; }
+  const d = JSON.parse(raw);
+  Object.keys(d).forEach(k => {
+    const el = document.getElementById(k.replace(/_/g,'-'));
+    if (el && k !== 'developers') el.value = d[k];
+  });
+  if (d.developers) developers = d.developers;
+  syncName(); calcMembers(); calcOptions();
+  alert('✅ Data loaded!');
+}
+
+function exportJSON() {
+  const data = { society: sv('s-name'), timestamp: new Date().toISOString(), options: computedOptions, developers };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `redeviq_${sv('s-name').replace(/\s+/g,'_') || 'society'}_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+}
+
+function resetAll() {
+  if (!confirm('Reset all data? This cannot be undone.')) return;
+  localStorage.removeItem('redeviq_data');
+  location.reload();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+calcMembers();
+calcOptions();
+</script>
+</body>
+</html>
