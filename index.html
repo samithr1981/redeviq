@@ -247,46 +247,46 @@ tbody tr:hover td { background: rgba(255,255,255,.02); }
         <div class="card-head"><span class="icon">🏢</span> Society Profile</div>
         <div class="field">
           <label>Society Name</label>
-          <input type="text" id="s-name" placeholder="e.g. Shreenath Nagar CHS Ltd" oninput="syncName()">
+          <input type="text" id="s-name" placeholder="Enter society name" oninput="syncName()">
         </div>
         <div class="field-row">
           <div>
             <label>Location / Area</label>
-            <input type="text" id="s-location" placeholder="e.g. Dahisar East, Mumbai">
+            <input type="text" id="s-location" placeholder="e.g. Andheri West, Mumbai">
           </div>
           <div>
             <label>Ward / Zone</label>
-            <input type="text" id="s-ward" placeholder="e.g. R-North">
+            <input type="text" id="s-ward" placeholder="Enter ward/zone">
           </div>
         </div>
         <div class="field-row">
           <div>
             <label>Net Plot Area (sq mt)</label>
-            <input type="number" id="s-plot" value="6692.73" oninput="calcOptions()">
+            <input type="number" id="s-plot" value="" oninput="calcOptions()">
           </div>
           <div>
             <label>Reservation / Encroachment (sq mt)</label>
-            <input type="number" id="s-res" value="1461.58" oninput="calcOptions()">
+            <input type="number" id="s-res" value="" oninput="calcOptions()">
           </div>
         </div>
         <div class="field-row">
           <div>
             <label>Road Setback (sq mt)</label>
-            <input type="number" id="s-setback" value="192" oninput="calcOptions()">
+            <input type="number" id="s-setback" value="" oninput="calcOptions()">
           </div>
           <div>
             <label>Amenity Handover to MCGM (sq mt)</label>
-            <input type="number" id="s-amenity" value="261.56" oninput="calcOptions()">
+            <input type="number" id="s-amenity" value="" oninput="calcOptions()">
           </div>
         </div>
         <div class="field-row">
           <div>
             <label>Ready Reckoner Rate (₹/sq mt)</label>
-            <input type="number" id="s-rr" value="57110" oninput="calcOptions()">
+            <input type="number" id="s-rr" value="" oninput="calcOptions()">
           </div>
           <div>
             <label>Construction Cost (₹/sq ft)</label>
-            <input type="number" id="s-const" value="3250" oninput="calcOptions()">
+            <input type="number" id="s-const" value="" oninput="calcOptions()">
           </div>
         </div>
       </div>
@@ -296,7 +296,7 @@ tbody tr:hover td { background: rgba(255,255,255,.02); }
         <div class="field-row">
           <div>
             <label>Total Residential Members</label>
-            <input type="number" id="s-total" value="133" oninput="calcMembers()">
+            <input type="number" id="s-total" value="" oninput="calcMembers()">
           </div>
           <div>
             <label>Commercial Members / Shops</label>
@@ -316,11 +316,11 @@ tbody tr:hover td { background: rgba(255,255,255,.02); }
         <div class="field-row">
           <div>
             <label>Avg 1BHK Carpet Area (sq ft, MOFA)</label>
-            <input type="number" id="s-1bhk-area" value="442" oninput="calcMembers()">
+            <input type="number" id="s-1bhk-area" value="" oninput="calcMembers()">
           </div>
           <div>
             <label>Avg 2BHK Carpet Area (sq ft, MOFA)</label>
-            <input type="number" id="s-2bhk-area" value="680" oninput="calcMembers()">
+            <input type="number" id="s-2bhk-area" value="" oninput="calcMembers()">
           </div>
         </div>
         <div id="member-summary" class="alert alert-teal" style="margin:0"></div>
@@ -331,41 +331,41 @@ tbody tr:hover td { background: rgba(255,255,255,.02); }
         <div class="field-row">
           <div>
             <label>Rent (₹/sq ft/month)</label>
-            <input type="number" id="s-rent" value="66" oninput="calcOptions()">
+            <input type="number" id="s-rent" value="" oninput="calcOptions()">
           </div>
           <div>
             <label>Rent Period (months)</label>
-            <input type="number" id="s-rent-months" value="38" oninput="calcOptions()">
+            <input type="number" id="s-rent-months" value="" oninput="calcOptions()">
           </div>
         </div>
         <div class="field-row">
           <div>
             <label>Corpus Fund (₹/sq ft)</label>
-            <input type="number" id="s-corpus" value="750" oninput="calcOptions()">
+            <input type="number" id="s-corpus" value="" oninput="calcOptions()">
           </div>
           <div>
             <label>Shifting Charges (₹/member)</label>
-            <input type="number" id="s-shifting" value="25000" oninput="calcOptions()">
+            <input type="number" id="s-shifting" value="" oninput="calcOptions()">
           </div>
         </div>
         <div class="field-row">
           <div>
             <label>Residential Sale Rate (₹/sq ft)</label>
-            <input type="number" id="s-sale-resi" value="23000" oninput="calcOptions()">
+            <input type="number" id="s-sale-resi" value="" oninput="calcOptions()">
           </div>
           <div>
             <label>Commercial Sale Rate GF (₹/sq ft)</label>
-            <input type="number" id="s-sale-comm" value="55000" oninput="calcOptions()">
+            <input type="number" id="s-sale-comm" value="" oninput="calcOptions()">
           </div>
         </div>
         <div class="field-row">
           <div>
             <label>Interest on Finance (% p.a.)</label>
-            <input type="number" id="s-interest" value="15" oninput="calcOptions()">
+            <input type="number" id="s-interest" value="" oninput="calcOptions()">
           </div>
           <div>
             <label>Project Duration (months)</label>
-            <input type="number" id="s-duration" value="36" oninput="calcOptions()">
+            <input type="number" id="s-duration" value="" oninput="calcOptions()">
           </div>
         </div>
       </div>
@@ -383,29 +383,29 @@ tbody tr:hover td { background: rgba(255,255,255,.02); }
         <p style="font-size:12px;color:var(--text2);margin-bottom:12px">Configure which redevelopment schemes apply to your society.</p>
         <div id="options-config">
           <div class="field-row3">
-            <div><label>Option 1 — Scheme</label><input type="text" id="opt1-scheme" value="33-7B" oninput="calcOptions()"></div>
-            <div><label>FSI</label><input type="number" id="opt1-fsi" value="3.24" step="0.01" oninput="calcOptions()"></div>
-            <div><label>Member Area +%</label><input type="number" id="opt1-add" value="24" oninput="calcOptions()"></div>
+            <div><label>Option 1 — Scheme</label><input type="text" id="opt1-scheme" value="Scheme 1" oninput="calcOptions()"></div>
+            <div><label>FSI</label><input type="number" id="opt1-fsi" value="" step="0.01" oninput="calcOptions()"></div>
+            <div><label>Member Area +%</label><input type="number" id="opt1-add" value="" oninput="calcOptions()"></div>
           </div>
           <div class="field-row3">
-            <div><label>Option 2 — Scheme</label><input type="text" id="opt2-scheme" value="33-9 Cluster" oninput="calcOptions()"></div>
-            <div><label>FSI</label><input type="number" id="opt2-fsi" value="4.0" step="0.01" oninput="calcOptions()"></div>
-            <div><label>Member Area +%</label><input type="number" id="opt2-add" value="55" oninput="calcOptions()"></div>
+            <div><label>Option 2 — Scheme</label><input type="text" id="opt2-scheme" value="Scheme 2" oninput="calcOptions()"></div>
+            <div><label>FSI</label><input type="number" id="opt2-fsi" value="" step="0.01" oninput="calcOptions()"></div>
+            <div><label>Member Area +%</label><input type="number" id="opt2-add" value="" oninput="calcOptions()"></div>
           </div>
           <div class="field-row3">
-            <div><label>Option 3 — Scheme</label><input type="text" id="opt3-scheme" value="33-11" oninput="calcOptions()"></div>
-            <div><label>FSI</label><input type="number" id="opt3-fsi" value="5.4" step="0.01" oninput="calcOptions()"></div>
-            <div><label>Member Area +%</label><input type="number" id="opt3-add" value="26" oninput="calcOptions()"></div>
+            <div><label>Option 3 — Scheme</label><input type="text" id="opt3-scheme" value="Scheme 3" oninput="calcOptions()"></div>
+            <div><label>FSI</label><input type="number" id="opt3-fsi" value="" step="0.01" oninput="calcOptions()"></div>
+            <div><label>Member Area +%</label><input type="number" id="opt3-add" value="" oninput="calcOptions()"></div>
           </div>
           <div class="field-row3">
-            <div><label>Option 4 — Scheme</label><input type="text" id="opt4-scheme" value="33-12B" oninput="calcOptions()"></div>
-            <div><label>FSI</label><input type="number" id="opt4-fsi" value="5.4" step="0.01" oninput="calcOptions()"></div>
-            <div><label>Member Area +%</label><input type="number" id="opt4-add" value="26" oninput="calcOptions()"></div>
+            <div><label>Option 4 — Scheme</label><input type="text" id="opt4-scheme" value="Scheme 4" oninput="calcOptions()"></div>
+            <div><label>FSI</label><input type="number" id="opt4-fsi" value="" step="0.01" oninput="calcOptions()"></div>
+            <div><label>Member Area +%</label><input type="number" id="opt4-add" value="" oninput="calcOptions()"></div>
           </div>
           <div class="field-row3">
-            <div><label>Option 5 — Scheme</label><input type="text" id="opt5-scheme" value="33-20B" oninput="calcOptions()"></div>
-            <div><label>FSI</label><input type="number" id="opt5-fsi" value="5.4" step="0.01" oninput="calcOptions()"></div>
-            <div><label>Member Area +%</label><input type="number" id="opt5-add" value="26" oninput="calcOptions()"></div>
+            <div><label>Option 5 — Scheme</label><input type="text" id="opt5-scheme" value="Scheme 5" oninput="calcOptions()"></div>
+            <div><label>FSI</label><input type="number" id="opt5-fsi" value="" step="0.01" oninput="calcOptions()"></div>
+            <div><label>Member Area +%</label><input type="number" id="opt5-add" value="" oninput="calcOptions()"></div>
           </div>
         </div>
       </div>
@@ -455,7 +455,7 @@ tbody tr:hover td { background: rgba(255,255,255,.02); }
       <div class="field-row">
         <div>
           <label>Your current carpet area (sq ft, MOFA)</label>
-          <input type="number" id="ent-area" value="442" oninput="calcEntitlement()">
+          <input type="number" id="ent-area" value="" oninput="calcEntitlement()">
         </div>
         <div>
           <label>Flat type</label>
@@ -522,7 +522,7 @@ tbody tr:hover td { background: rgba(255,255,255,.02); }
       </div>
       <div class="score-row">
         <label>Corpus fund (₹/sq ft)</label>
-        <input type="range" id="w-corpus" min="0" max="30" value="15" oninput="updateWeights()">
+        <input type="range" id="w-corpus" min="0" max="30" value="" oninput="updateWeights()">
         <span class="score-val" id="wv-corpus">15</span>
         <span class="score-weight">pts</span>
       </div>
@@ -534,13 +534,13 @@ tbody tr:hover td { background: rgba(255,255,255,.02); }
       </div>
       <div class="score-row">
         <label>Developer networth / financials</label>
-        <input type="range" id="w-networth" min="0" max="20" value="15" oninput="updateWeights()">
+        <input type="range" id="w-networth" min="0" max="20" value="" oninput="updateWeights()">
         <span class="score-val" id="wv-networth">15</span>
         <span class="score-weight">pts</span>
       </div>
       <div class="score-row">
         <label>Completed projects</label>
-        <input type="range" id="w-projects" min="0" max="20" value="15" oninput="updateWeights()">
+        <input type="range" id="w-projects" min="0" max="20" value="" oninput="updateWeights()">
         <span class="score-val" id="wv-projects">15</span>
         <span class="score-weight">pts</span>
       </div>
@@ -612,11 +612,7 @@ tbody tr:hover td { background: rgba(255,255,255,.02); }
 // ═══════════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════════
-let developers = [
-  { name:'ABC 1', carpet_pct:46, corpus:0, rent:0, networth:0, projects:5, bg:0, no_litigation:true, scheme:'33-7B' },
-  { name:'ABC 2', carpet_pct:59, corpus:0, rent:0, networth:0, projects:5, bg:0, no_litigation:true, scheme:'33-9' },
-  { name:'Kanakia', carpet_pct:61, corpus:1800, rent:80, networth:64, projects:8, bg:0, no_litigation:true, scheme:'33-9' },
-];
+let developers = [];
 
 let computedOptions = [];
 
@@ -1094,7 +1090,7 @@ function renderCompare() {
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       ${[
         'Confirm net plot area with society records and city survey map',
-        'Verify existing MOFA carpet areas for all 133 members individually',
+        'Verify existing MOFA carpet areas for all members individually',
         'Obtain FSI calculation sheet from licensed architect for each option',
         'Confirm 5% MCGM amenity handover requirement with authority',
         'All developers to submit audited financials for last 3 years',
