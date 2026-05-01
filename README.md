@@ -1,6 +1,8 @@
 # RedevIQ
 ### Housing Society Redevelopment Intelligence
 
+https://samithr1981.github.io/redeviq/
+
 A free, open-source decision tool for housing society members, managing committees, and PMCs navigating the redevelopment process in Maharashtra. No installation. No login. No data sent anywhere. Works entirely in your browser.
 
 ---
